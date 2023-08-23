@@ -4,10 +4,12 @@ import {
   Column,
   Entity,
   JoinColumn,
+  OneToMany,
   OneToOne,
   PrimaryColumn,
 } from "typeorm";
 import { EnderecoEntity } from "./endereco.entity";
+import { TransacoesEntity } from "./transacoes.entity";
 
 @Entity({ name: "usuarios" })
 export class UsuarioEntity extends BaseEntity {
@@ -23,6 +25,9 @@ export class UsuarioEntity extends BaseEntity {
   @Column({ name: "criadoem" })
   criadoEm!: Date;
 
+  @Column({ name: "id_endereco", nullable: true })
+  idEndereco!: string | null;
+
   @OneToOne(() => EnderecoEntity)
   @JoinColumn({
     name: "id_endereco",
@@ -30,6 +35,9 @@ export class UsuarioEntity extends BaseEntity {
     referencedColumnName: "id",
   })
   endereco?: EnderecoEntity;
+
+  @OneToMany(() => TransacoesEntity, (transacao) => transacao.usuario)
+  transacoes!: TransacoesEntity[];
 
   @BeforeInsert()
   beforeInsert() {
