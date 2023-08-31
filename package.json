@@ -6,9 +6,12 @@
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"build": "npx tsc",
-		"start": "node ./dist/server.js",
-		"dev": "ts-node-dev --respawn --transpile-only ./src/server.ts",
-		"dev:db": "ts-node-dev --respawn --transpile-only ./src/database/test-connection-db.ts"
+		"start": "node ./dist/main/server.js",
+		"dev": "ts-node-dev --respawn --transpile-only ./src/main/server.ts",
+		"dev:db": "ts-node-dev --respawn --transpile-only ./src/database/test-connection-db.ts",
+		"migration:create": "yarn typeorm migration:create ./src/database/migrations/NomeMigration",
+		"typeorm": "typeorm-ts-node-commonjs",
+		"migration:run": "yarn typeorm migration:run -- -d src/main/config/database.config.ts"
 	},
 	"keywords": [],
 	"author": "",
